@@ -10,11 +10,19 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), 
-                     new MySqlServerVersion(new Version(9, 0, 1)))); // Replace 8, 0, 31 with your MySQL version
- // Add semicolon here
+                     new MySqlServerVersion(new Version(9, 0, 1)))); 
+
+//using MySql.Data.MySqlClient;
 var app = builder.Build();
+
+// app.UseRouting(); // For routing requests to controllers
+// app.UseEndpoints(endpoints =>
+// {
+//     endpoints.MapControllers(); // To map controllers and their actions to routes
+// });
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -29,6 +37,8 @@ var summaries = new[]
 {
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 };
+
+
 
 app.MapGet("/weatherforecast", () =>
 {   

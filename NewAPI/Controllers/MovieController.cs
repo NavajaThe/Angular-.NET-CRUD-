@@ -16,7 +16,7 @@ public class MoviesController : ControllerBase
     }
 
     //Read All
-    // GET: /Movies
+    // GET: /movies
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Movie>>> GetMovies()
     {   
@@ -26,7 +26,7 @@ public class MoviesController : ControllerBase
     }
 
     //Read
-    // GET: /Movies/5
+    // GET: /movies/5
     [HttpGet("{id}")]
     public async Task<ActionResult<Movie>> GetMovie(int id)
     {
@@ -40,17 +40,28 @@ public class MoviesController : ControllerBase
         return movie;
     }
 
-    // PUT: /Movies/5
+    // PUT: /movies/5
     //Update
     [HttpPut("{id}")]
     public async Task<IActionResult> PutMovie(int id, Movie movie)
     {
-        if (id != movie.PKMovies)
+        if (id != movie.PKMovies) // Use PKMovies for comparison
         {
             return BadRequest();
         }
 
-        _context.Entry(movie).State = EntityState.Modified;
+        var existingMovie = await _context.Movies.FindAsync(id);
+
+        if (existingMovie == null)
+        {
+            return NotFound();
+        }
+
+        // Update properties of the existing movie
+        existingMovie.Name = movie.Name;
+        existingMovie.Gender = movie.Gender;
+        existingMovie.Duration = movie.Duration;
+        existingMovie.FKDirector = movie.FKDirector;
 
         try
         {
@@ -68,38 +79,38 @@ public class MoviesController : ControllerBase
             }
         }
 
-        //return NoContent();
-        return Ok("Movie updated successfully!");
+        return   
+    Ok("Movie updated successfully!");
     }
 
     //Upload
-    // POST: /Movies
+    // POST: /movies
     [HttpPost]
     public async Task<ActionResult<Movie>> PostMovie(Movie movie)
     {
-        _context.Movies.Add(movie);
-
+        // Check if the provided FKDirector exists in the Director table
         if (!await _context.Director.AnyAsync(d => d.PKDirector == movie.FKDirector))
         {
             return BadRequest("Invalid Director ID. The specified director does not exist.");
         }
 
-        _context.Entry(movie).State = EntityState.Modified;
+        _context.Movies.Add(movie); 
 
         try
         {
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(); // This will insert the new movie and assign a PKMovies value
         }
-        catch (DbUpdateConcurrencyException)
+        catch (DbUpdateException ex) 
         {
-            return BadRequest("Error");
+            //_logger.LogError(ex, "An error occurred while creating the movie.");
+            return StatusCode(500, "An error occurred while processing your request."); 
         }
 
-        return CreatedAtAction("GetMovie", new { id = movie.PKMovies }, movie);
+        return CreatedAtAction("GetMovie", new { id = movie.PKMovies }, movie); 
     }
 
     //Delete
-    // DELETE: api/Movies/5
+    // DELETE: /movies/5
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteMovie(int id)
     {

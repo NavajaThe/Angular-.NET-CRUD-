@@ -78,7 +78,22 @@ public class MoviesController : ControllerBase
     public async Task<ActionResult<Movie>> PostMovie(Movie movie)
     {
         _context.Movies.Add(movie);
-        await _context.SaveChangesAsync();
+
+        if (!await _context.Director.AnyAsync(d => d.PKDirector == movie.FKDirector))
+        {
+            return BadRequest("Invalid Director ID. The specified director does not exist.");
+        }
+
+        _context.Entry(movie).State = EntityState.Modified;
+
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            return BadRequest("Error");
+        }
 
         return CreatedAtAction("GetMovie", new { id = movie.PKMovies }, movie);
     }

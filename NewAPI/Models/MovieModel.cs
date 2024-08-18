@@ -1,10 +1,13 @@
+using System.ComponentModel.DataAnnotations;
+
 public class Movie
-{
-    public int Id { get; set; } // PKMovies
+{   
+    [Key]
+    public int PKMovies { get; set; }
     public string? Name { get; set; }
     public string? Gender { get; set; }
     public TimeSpan Duration { get; set; }
 
-    public int DirectorId { get; set; } // FKDirector
+    public int FKDirector { get; set; }
     public Director? Director { get; set; } 
 }

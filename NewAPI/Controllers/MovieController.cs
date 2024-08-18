@@ -1,5 +1,5 @@
-using Microsoft.AspNetCore.Mvc; // Para ControllerBase, ActionResult, etc.
-using Microsoft.EntityFrameworkCore; // Para DbContext, DbSet, etc.
+using Microsoft.AspNetCore.Mvc; 
+using Microsoft.EntityFrameworkCore; 
 using Data;
 
 
@@ -13,19 +13,20 @@ public class MoviesController : ControllerBase
     public MoviesController(ApplicationDbContext context)
     {
         _context = context;
-        Console.WriteLine("lol0");
     }
 
-    // GET: api/Movies
+    //Read All
+    // GET: /Movies
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Movie>>> GetMovies()
     {   
         Console.WriteLine("lol");
-        //return await _context.Movies.Include(m => m.Director).ToListAsync(); 
-        return Ok("si");
+        return await _context.Movies.Include(m => m.Director).ToListAsync(); 
+        //return Ok("si");
     }
 
-    // GET: api/Movies/5
+    //Read
+    // GET: /Movies/5
     [HttpGet("{id}")]
     public async Task<ActionResult<Movie>> GetMovie(int id)
     {
@@ -39,11 +40,12 @@ public class MoviesController : ControllerBase
         return movie;
     }
 
-    // PUT: api/Movies/5
+    // PUT: /Movies/5
+    //Update
     [HttpPut("{id}")]
     public async Task<IActionResult> PutMovie(int id, Movie movie)
     {
-        if (id != movie.Id)
+        if (id != movie.PKMovies)
         {
             return BadRequest();
         }
@@ -70,16 +72,18 @@ public class MoviesController : ControllerBase
         return Ok("Movie updated successfully!");
     }
 
-    // POST: api/Movies
+    //Upload
+    // POST: /Movies
     [HttpPost]
     public async Task<ActionResult<Movie>> PostMovie(Movie movie)
     {
         _context.Movies.Add(movie);
         await _context.SaveChangesAsync();
 
-        return CreatedAtAction("GetMovie", new { id = movie.Id }, movie);
+        return CreatedAtAction("GetMovie", new { id = movie.PKMovies }, movie);
     }
 
+    //Delete
     // DELETE: api/Movies/5
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteMovie(int id)
@@ -98,6 +102,6 @@ public class MoviesController : ControllerBase
 
     private bool MovieExists(int id)
     {
-        return _context.Movies.Any(e => e.Id == id);
+        return _context.Movies.Any(e => e.PKMovies == id);
     }
 }

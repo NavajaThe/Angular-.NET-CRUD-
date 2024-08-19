@@ -1,0 +1,12 @@
+<h2>Movie List</h2>
+
+<ul>
+  <li *ngFor="let movie of movies">
+    {{ movie.Name }} - {{ movie.Director }}
+    <a [routerLink]="['/movies', movie.PKMovies]">View Details</a> 
+    <a [routerLink]="['/movies', movie.PKMovies, 'edit']">Edit</a> 
+    <button (click)="deleteMovie(movie)">Delete</button>
+  </li>
+</ul>
+
+<a [routerLink]="['/movies/create']">Create New Movie</a>

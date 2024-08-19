@@ -18,69 +18,43 @@ public class MoviesController : ControllerBase
     //Read All
     // GET: /movies
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Movie>>> GetMovies()
+    public async Task<ActionResult<IEnumerable<object>>> GetMovies()
     {   
-        Console.WriteLine("lol");
-        return await _context.Movies.Include(m => m.Director).ToListAsync(); 
-        //return Ok("si");
+        var movies = await _context.Movies.Include(m => m.Director)
+                                        .Select(m => new 
+                                        {
+                                            m.PKMovies,
+                                            m.Name,
+                                            m.Gender,
+                                            m.Duration,
+                                            DirectorName = m.Director.Name // Select only the Director's Name
+                                        })
+                                        .ToListAsync(); 
+
+        return Ok(movies);
     }
 
-    //Read
     // GET: /movies/5
     [HttpGet("{id}")]
-    public async Task<ActionResult<Movie>> GetMovie(int id)
+    public async Task<ActionResult<object>> GetMovie(int id)
     {
-        var movie = await _context.Movies.FindAsync(id);
+        var movie = await _context.Movies.Include(m => m.Director)
+                                        .Select(m => new 
+                                        {
+                                            m.PKMovies,
+                                            m.Name,
+                                            m.Gender,
+                                            m.Duration,
+                                            DirectorName = m.Director.Name
+                                        })
+                                        .FirstOrDefaultAsync(m => m.PKMovies == id);
 
         if (movie == null)
         {
             return NotFound();
         }
 
-        return movie;
-    }
-
-    // PUT: /movies/5
-    //Update
-    [HttpPut("{id}")]
-    public async Task<IActionResult> PutMovie(int id, Movie movie)
-    {
-        if (id != movie.PKMovies) // Use PKMovies for comparison
-        {
-            return BadRequest();
-        }
-
-        var existingMovie = await _context.Movies.FindAsync(id);
-
-        if (existingMovie == null)
-        {
-            return NotFound();
-        }
-
-        // Update properties of the existing movie
-        existingMovie.Name = movie.Name;
-        existingMovie.Gender = movie.Gender;
-        existingMovie.Duration = movie.Duration;
-        existingMovie.FKDirector = movie.FKDirector;
-
-        try
-        {
-            await _context.SaveChangesAsync();
-        }
-        catch (DbUpdateConcurrencyException)
-        {
-            if (!MovieExists(id))
-            {
-                return NotFound();
-            }
-            else
-            {
-                throw;
-            }
-        }
-
-        return   
-    Ok("Movie updated successfully!");
+        return Ok(movie);
     }
 
     //Upload
@@ -95,6 +69,8 @@ public class MoviesController : ControllerBase
         }
 
         _context.Movies.Add(movie); 
+
+        Console.WriteLine("lol");
 
         try
         {

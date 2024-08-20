@@ -4,8 +4,10 @@ import { MovieListComponent } from './movie-list/movie-list.component';
 
 
 const routes: Routes = [
-  { path: 'movies', component: MovieListComponent },
-  // ... other routes
+  //{ path: '', component: MovieListComponent }, // Ruta principal
+  { path: 'movies', component: MovieListComponent }, 
+  //{ path: 'movies/:id', component: MovieDetailsComponent },
+  // ... otras rutas
 ];
 
 @NgModule({

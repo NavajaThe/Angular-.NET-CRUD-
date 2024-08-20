@@ -1,16 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-// Assuming your Movie model looks like this (adjust if needed)
-interface Movie {
-  PKMovies: number;
-  Name: string;
-  Gender: string;
-  Duration: string;
-  FKDirector: number;
-  Director: string;
-}
+import { Movie } from './models/Movie_Model'; 
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +24,7 @@ export class MovieService {
   }
 
   updateMovie(movie: Movie): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${movie.PKMovies}`, movie);
+    return this.http.put(`${this.apiUrl}/${movie.pKMovies}`, movie);
   }
 
   deleteMovie(id: number): Observable<any> {

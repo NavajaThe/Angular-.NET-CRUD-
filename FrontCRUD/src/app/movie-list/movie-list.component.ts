@@ -23,7 +23,7 @@ export class MovieListComponent implements OnInit {
 
   deleteMovie(movie: Movie): void {
     if (confirm('Are you sure you want to delete this movie?')) {
-      this.movieService.deleteMovie(movie.PKMovies)
+      this.movieService.deleteMovie(movie.pKMovies)
         .subscribe(() => {
           this.movies = this.movies.filter(m => m !== movie);
         });

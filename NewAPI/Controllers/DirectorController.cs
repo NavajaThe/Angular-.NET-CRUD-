@@ -40,7 +40,7 @@ public class DirectorsController : ControllerBase
     [HttpPut("{id}")]
     public async Task<IActionResult> PutDirector(int id, Director director)
     {
-        if (id != director.pkDirector)
+        if (id != director.PKDirector)
         {
             return BadRequest();
         }
@@ -73,7 +73,7 @@ public class DirectorsController : ControllerBase
         _context.Director.Add(director);
         await _context.SaveChangesAsync();
 
-        return CreatedAtAction("GetDirector", new { id = director.pkDirector }, director);
+        return CreatedAtAction("GetDirector", new { id = director.PKDirector }, director);
     }
 
     // DELETE: /director/5
@@ -88,7 +88,7 @@ public class DirectorsController : ControllerBase
         }
 
         // Check for associated movies
-        if (await _context.Movies.AnyAsync(m => m.fkDirector == id))
+        if (await _context.Movies.AnyAsync(m => m.FKDirector == id))
         {
             return BadRequest("Cannot delete director. There are movies associated with this director.");
         }
@@ -101,6 +101,6 @@ public class DirectorsController : ControllerBase
 
         private bool DirectorExists(int id)
         {
-            return _context.Director.Any(e => e.pkDirector == id);
+            return _context.Director.Any(e => e.PKDirector == id);
         }
     }

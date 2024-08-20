@@ -40,7 +40,7 @@ public class DirectorsController : ControllerBase
     [HttpPut("{id}")]
     public async Task<IActionResult> PutDirector(int id, Director director)
     {
-        if (id != director.PKDirector)
+        if (id != director.pkDirector)
         {
             return BadRequest();
         }
@@ -73,7 +73,7 @@ public class DirectorsController : ControllerBase
         _context.Director.Add(director);
         await _context.SaveChangesAsync();
 
-        return CreatedAtAction("GetDirector", new { id = director.PKDirector }, director);
+        return CreatedAtAction("GetDirector", new { id = director.pkDirector }, director);
     }
 
     // DELETE: /director/5
@@ -83,34 +83,24 @@ public class DirectorsController : ControllerBase
         var director = await _context.Director.FindAsync(id);
         if (director == null)
         {
-            return NotFound();
+            return NotFound();   
+
+        }
+
+        // Check for associated movies
+        if (await _context.Movies.AnyAsync(m => m.fkDirector == id))
+        {
+            return BadRequest("Cannot delete director. There are movies associated with this director.");
         }
 
         _context.Director.Remove(director);
-
-        try
-        {
-            await _context.SaveChangesAsync();
-        }
-        catch (DbUpdateException ex)
-        {
-            // Check if the delete failed due to a foreign key constraint violation
-            if (ex.InnerException is MySqlException mysqlEx && mysqlEx.Number == 1451) 
-            {
-                return BadRequest("Cannot delete director. There are movies associated with this director.");
-            }
-            else
-            {
-                // Handle other potential database errors
-                return StatusCode(500, "An error occurred while processing your request.");
-            }
-        }
+        await _context.SaveChangesAsync();
 
         return NoContent();
     }
 
-    private bool DirectorExists(int id)
-    {
-        return _context.Director.Any(e => e.PKDirector == id);
+        private bool DirectorExists(int id)
+        {
+            return _context.Director.Any(e => e.pkDirector == id);
+        }
     }
-}

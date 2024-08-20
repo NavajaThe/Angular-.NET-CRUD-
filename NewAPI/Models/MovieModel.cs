@@ -3,11 +3,11 @@ using System.ComponentModel.DataAnnotations;
 public class Movie
 {   
     [Key]
-    public int PKMovies { get; set; }
-    public string? Name { get; set; }
-    public string? Gender { get; set; }
-    public string? Duration { get; set; }
+    public int pkMovies { get; set; }
+    public string? name { get; set; }
+    public string? gender { get; set; }
+    public string? duration { get; set; }
 
-    public int FKDirector { get; set; }
-    public Director? Director { get; set; } 
+    public int fkDirector { get; set; }
+    public Director? director { get; set; } 
 }

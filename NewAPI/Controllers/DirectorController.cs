@@ -17,23 +17,60 @@ public class DirectorsController : ControllerBase
 
     // GET: /director
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Director>>> GetDirectors()
+    public async Task<ActionResult<IEnumerable<DirectorDTO>>> GetDirectors()
     {
-        return await _context.Director.ToListAsync();
+        var directors = await _context.Director.Include(d => d.Movies).ToListAsync();
+
+        // Map to DTOs to avoid circular references
+        var directorDTOs = directors.Select(d => new DirectorDTO
+        {
+            pkDirector = d.PKDirector,
+            name = d.Name,
+            age = d.Age,
+            active = d.Active,
+            Movies = d.Movies.Select(m => new MovieDTO
+            {
+                pkMovies = m.PKMovies,
+                name = m.Name,
+                gender = m.Gender,
+                duration = m.Duration,
+                fkDirector = m.FKDirector
+            }).ToList()
+        });
+
+        return Ok(directorDTOs);
     }
 
     // GET: /director/5
     [HttpGet("{id}")]
-    public async Task<ActionResult<Director>> GetDirector(int id)
+    public async Task<ActionResult<DirectorDTO>> GetDirector(int id)
     {
-        var director = await _context.Director.FindAsync(id);
+        var director = await _context.Director.Include(d => d.Movies)
+                                            .FirstOrDefaultAsync(d => d.PKDirector == id);
 
         if (director == null)
         {
             return NotFound();
         }
 
-        return director;
+        // Map to DTO to avoid circular references
+        var directorDTO = new DirectorDTO
+        {
+            pkDirector = director.PKDirector,
+            name = director.Name,
+            age = director.Age,
+            active = director.Active,
+            Movies = director.Movies.Select(m => new MovieDTO
+            {
+                pkMovies = m.PKMovies,
+                name = m.Name,
+                gender = m.Gender,
+                duration = m.Duration,
+                fkDirector = m.FKDirector
+            }).ToList()
+        };
+
+        return Ok(directorDTO);
     }
 
     // PUT: /director/5
@@ -63,7 +100,7 @@ public class DirectorsController : ControllerBase
             }
         }
 
-        return NoContent();
+        return Ok("Success");
     }
 
     // POST: /director

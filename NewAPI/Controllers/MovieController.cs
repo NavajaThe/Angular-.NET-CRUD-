@@ -109,9 +109,9 @@ public class MoviesController : ControllerBase
 
         _context.Movies.Add(movie);
 
-        var director = await _context.Director.FindAsync(movie.FKDirector);
+        // var director = await _context.Director.FindAsync(movie.FKDirector);
 
-        movie.Director = director; // Assign the director to the movie
+        // movie.Director = director; // Assign the director to the movie
 
         //_context.Entry(movie).State = EntityState.Modified;
 

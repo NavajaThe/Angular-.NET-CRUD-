@@ -45,7 +45,6 @@ export class MovieListComponent implements OnInit {
     if (confirm('Are you sure you want to delete this movie?')) {
       this.movieService.deleteMovie(movie.pkMovies)
         .subscribe(() => {
-          console.log("werqwerqwerqwerq");
           this.getMovies();
         });
     }

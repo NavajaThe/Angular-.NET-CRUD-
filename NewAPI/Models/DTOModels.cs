@@ -15,5 +15,5 @@ public class DirectorDTO
     public string? name { get; set; } 
     public int age { get; set; } 
     public bool active { get; set; } 
-    public List<MovieDTO>? Movies { get; set; } 
+    public List<MovieDTO>? movies { get; set; } 
 }

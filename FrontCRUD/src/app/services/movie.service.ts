@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Movie } from '../models/Movie_Model'; 
+import { MovieUpload } from '../models/Movie_Up_Model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class MovieService {
     return this.http.get<Movie>(`${this.apiUrl}/${id}`);
   }
 
-  createMovie(movie: Movie): Observable<Movie> {
+  createMovie(movie: MovieUpload): Observable<Movie> {
     return this.http.post<Movie>(this.apiUrl, movie);
   }
 

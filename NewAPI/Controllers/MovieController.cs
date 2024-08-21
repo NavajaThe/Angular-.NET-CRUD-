@@ -21,14 +21,14 @@ public class MoviesController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<object>>> GetMovies()
     {   
-        var movies = await _context.Movies.Include(m => m.Director)
+        var movies = await _context.Movies.Include(m => m.director)
                                         .Select(m => new 
                                         {
-                                            m.PKMovies,
-                                            m.Name,
-                                            m.Gender,
-                                            m.Duration,
-                                            Director = m.Director.Name // Select only the Director's Name
+                                            m.pkMovies,
+                                            m.name,
+                                            m.gender,
+                                            m.duration,
+                                            Director = m.director.name // Select only the Director's Name
                                         })
                                         .ToListAsync(); 
 
@@ -39,16 +39,16 @@ public class MoviesController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<object>> GetMovie(int id)
     {
-        var movie = await _context.Movies.Include(m => m.Director)
+        var movie = await _context.Movies.Include(m => m.director)
                                         .Select(m => new 
                                         {
-                                            m.PKMovies,
-                                            m.Name,
-                                            m.Gender,
-                                            m.Duration,
-                                            Director = m.Director.Name
+                                            m.pkMovies,
+                                            m.name,
+                                            m.gender,
+                                            m.duration,
+                                            Director = m.director.name
                                         })
-                                        .FirstOrDefaultAsync(m => m.PKMovies == id);
+                                        .FirstOrDefaultAsync(m => m.pkMovies == id);
 
         if (movie == null)
         {
@@ -64,7 +64,7 @@ public class MoviesController : ControllerBase
     public async Task<ActionResult<Movie>> PostMovie(Movie movie)
     {
         
-        if (!await _context.Director.AnyAsync(d => d.PKDirector == movie.FKDirector))
+        if (!await _context.Director.AnyAsync(d => d.pkDirector == movie.fkDirector))
         {
             return BadRequest("Invalid Director ID. The specified director does not exist.");
         }
@@ -82,7 +82,7 @@ public class MoviesController : ControllerBase
         }
 
         //return CreatedAtAction("GetMovie", new { id = movie.PKMovies }, movie);
-        return CreatedAtAction("GetMovie", new { id = movie.PKMovies }, movie); 
+        return CreatedAtAction("GetMovie", new { id = movie.pkMovies }, movie); 
     }
 
     //Delete
@@ -104,6 +104,6 @@ public class MoviesController : ControllerBase
 
     private bool MovieExists(int id)
     {
-        return _context.Movies.Any(e => e.PKMovies == id);
+        return _context.Movies.Any(e => e.pkMovies == id);
     }
 }

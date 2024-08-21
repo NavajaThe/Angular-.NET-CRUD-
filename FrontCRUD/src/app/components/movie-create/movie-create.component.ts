@@ -7,6 +7,7 @@ import { DirectorService } from '../../services/director.service';
 import { MovieService } from '../../services/movie.service';
 
 import { Observable, of } from 'rxjs';
+import { MovieUpload } from 'src/app/models/Movie_Up_Model';
 
 
 @Component({
@@ -62,15 +63,20 @@ export class MovieCreateComponent implements OnInit {
      this.close.emit();
   }
 
+  getMovies(): void {
+    this.movieService.getMovies()
+      .subscribe(movies => this.movies = movies);
+  }
+
   onSubmit(form: NgForm,) {
     if (form.valid) {
-    let newMovie:Movie = form.value; // Get the form values
+    let newMovie:MovieUpload = form.value; // Get the form values
     // You might also want to close the modal here using Bootstrap's JavaScript API
-    newMovie.director = Number(this.selectedDirector);
+    newMovie.fKDirector = Number(this.selectedDirector);
     form.resetForm(); // Reset the form
-    console.log(newMovie);
     this.movieService.createMovie(newMovie)
       .subscribe(  response => console.log(response));
+    this.getMovies();
     this.closeModal();
     }
   }

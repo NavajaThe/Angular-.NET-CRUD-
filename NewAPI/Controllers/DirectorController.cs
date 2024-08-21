@@ -19,22 +19,22 @@ public class DirectorsController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<DirectorDTO>>> GetDirectors()
     {
-        var directors = await _context.Director.Include(d => d.Movies).ToListAsync();
+        var directors = await _context.Director.Include(d => d.movies).ToListAsync();
 
         // Map to DTOs to avoid circular references
         var directorDTOs = directors.Select(d => new DirectorDTO
         {
-            pkDirector = d.PKDirector,
-            name = d.Name,
-            age = d.Age,
-            active = d.Active,
-            Movies = d.Movies.Select(m => new MovieDTO
+            pkDirector = d.pkDirector,
+            name = d.name,
+            age = d.age,
+            active = d.active,
+            movies = d.movies.Select(m => new MovieDTO
             {
-                pkMovies = m.PKMovies,
-                name = m.Name,
-                gender = m.Gender,
-                duration = m.Duration,
-                fkDirector = m.FKDirector
+                pkMovies = m.pkMovies,
+                name = m.name,
+                gender = m.gender,
+                duration = m.duration,
+                fkDirector = m.fkDirector
             }).ToList()
         });
 
@@ -45,8 +45,8 @@ public class DirectorsController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<DirectorDTO>> GetDirector(int id)
     {
-        var director = await _context.Director.Include(d => d.Movies)
-                                            .FirstOrDefaultAsync(d => d.PKDirector == id);
+        var director = await _context.Director.Include(d => d.movies)
+                                            .FirstOrDefaultAsync(d => d.pkDirector == id);
 
         if (director == null)
         {
@@ -56,17 +56,17 @@ public class DirectorsController : ControllerBase
         // Map to DTO to avoid circular references
         var directorDTO = new DirectorDTO
         {
-            pkDirector = director.PKDirector,
-            name = director.Name,
-            age = director.Age,
-            active = director.Active,
-            Movies = director.Movies.Select(m => new MovieDTO
+            pkDirector = director.pkDirector,
+            name = director.name,
+            age = director.age,
+            active = director.active,
+            movies = director.movies.Select(m => new MovieDTO
             {
-                pkMovies = m.PKMovies,
-                name = m.Name,
-                gender = m.Gender,
-                duration = m.Duration,
-                fkDirector = m.FKDirector
+                pkMovies = m.pkMovies,
+                name = m.name,
+                gender = m.gender,
+                duration = m.duration,
+                fkDirector = m.fkDirector
             }).ToList()
         };
 
@@ -77,7 +77,7 @@ public class DirectorsController : ControllerBase
     [HttpPut("{id}")]
     public async Task<IActionResult> PutDirector(int id, Director director)
     {
-        if (id != director.PKDirector)
+        if (id != director.pkDirector)
         {
             return BadRequest();
         }
@@ -110,7 +110,7 @@ public class DirectorsController : ControllerBase
         _context.Director.Add(director);
         await _context.SaveChangesAsync();
 
-        return CreatedAtAction("GetDirector", new { id = director.PKDirector }, director);
+        return CreatedAtAction("GetDirector", new { id = director.pkDirector }, director);
     }
 
     // DELETE: /director/5
@@ -125,7 +125,7 @@ public class DirectorsController : ControllerBase
         }
 
         // Check for associated movies
-        if (await _context.Movies.AnyAsync(m => m.FKDirector == id))
+        if (await _context.Movies.AnyAsync(m => m.fkDirector == id))
         {
             return BadRequest("Cannot delete director. There are movies associated with this director.");
         }
@@ -138,6 +138,6 @@ public class DirectorsController : ControllerBase
 
         private bool DirectorExists(int id)
         {
-            return _context.Director.Any(e => e.PKDirector == id);
+            return _context.Director.Any(e => e.pkDirector == id);
         }
     }

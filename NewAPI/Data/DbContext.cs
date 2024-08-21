@@ -14,9 +14,9 @@ namespace Data{
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Movie>()
-                .HasOne(m => m.Director)
-                .WithMany(d => d.Movies)
-                .HasForeignKey(m => m.FKDirector);
+                .HasOne(m => m.director)
+                .WithMany(d => d.movies)
+                .HasForeignKey(m => m.fkDirector);
         }
     }
 }

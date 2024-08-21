@@ -10,6 +10,7 @@ import { MovieEditComponent } from './components/movie-edit/movie-edit.component
 import { MovieDetailsComponent } from './components/movie-details/movie-details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { FormsModule } from '@angular/forms'; // Import FormsModule
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatToolbarModule
+    MatToolbarModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,27 +1,40 @@
+  <div class="row m-3">
+    <div class="col-12 d-flex justify-content-end">
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addMovieModal">
+        Add Movie
+      </button>
+    </div>
+</div>
+
 <div class="row m-3">
-    <h2>Movie List</h2>
-      <div class="col-3"  *ngFor="let movie of movies">
-        <div class="card" >
-          <div class="card-body">
-            <p class="card-text">
-              Autor:{{ movie.name }}
-              Director{{ movie.directorName }}
-            </p>
-              <div class="row justify-content-between"> 
-                <div class="col-md-6"> 
-                  <button class="btn btn-primary">Editar</button>
-                </div>
-                <div class="col-md-6"> 
-                  <button class="btn btn-danger" (click)="deleteMovie(movie)" >Eliminar</button>
-                </div>
-              </div>
+  <div class="col-3" *ngFor="let movie of movies">
+    <div class="card">
+      <div class="card-body">
+        <div style="display: flex; justify-content: center; align-items: center; margin: 1rem;">
+          <i class="bi bi-film" style="font-size: 3rem;"></i> 
+        </div>
+        <div style="display: flex; justify-content: center; align-items: center; margin: 1rem;">
+          <p class="card-text" style="display: flex; flex-direction: column; font-size: medium;">
+            <span>Autor: {{ movie.director }}</span>
+            <span>Film: {{ movie.name }}</span>
+          </p>
+        </div>
+        <div style="display: flex; justify-content: center; align-items: center;">
+          <div class="row justify-content-between">
+            <div class="col-md-6">
+              <button class="btn btn-primary">Editar</button>
+            </div>
+            <div class="col-md-6">
+              <button class="btn btn-danger" (click)="deleteMovie(movie)">Eliminar</button>
+            </div>
           </div>
         </div>
       </div>
-      
-      <!-- <a [routerLink]="['/movies', movie.pKMovies]">View Details</a> 
-      <br>
-      <a [routerLink]="['/movies', movie.pKMovies, 'edit']">Edit</a> 
-      <button (click)="deleteMovie(movie)">Delete</button> -->
+    </div>
   </div>
+</div>
 
+
+
+
+  <app-movie-create (close)="closeModal()"></app-movie-create> 

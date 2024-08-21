@@ -1,1 +1,33 @@
-<p>movie-create works!</p>
+<div class="modal fade" id="addMovieModal" tabindex="-1" aria-labelledby="addMovieModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addMovieModalLabel" style="font-size: 1.5rem;">Add New Movie</h5> 
+        <button type="button" id="myButton" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #addMovieForm="ngForm" (ngSubmit)="onSubmit(addMovieForm)" style="font-size: 1.2rem;"> 
+          <div class="mb-3">
+            <label for="name" class="form-label">Título de la pelicula</label>
+            <input type="text" class="form-control" id="name" name="name" ngModel required>
+          </div>
+          <div class="mb-3">
+            <label for="gender" class="form-label">Genero</label>
+            <input type="text" class="form-control" id="gender" name="gender" ngModel required>
+          </div>
+          <div class="mb-3">
+            <label for="duration" class="form-label">Duración</label>
+            <input type="text" class="form-control" id="duration" name="duration" ngModel required>
+          </div>
+          <div class="mb-3">
+            <label for="director" class="form-label">Director</label>
+            <select class="form-select" id="director" name="director" ngModel required> 
+              <option *ngFor="let director of directors" [value]="director">{{ director }}</option> 
+            </select>
+          </div>
+          <button (click)="closeModal()" class="btn btn-primary">Save</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

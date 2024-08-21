@@ -5,5 +5,5 @@ export interface Movie {
     duration: string;
 
     fKDirector: number;
-    directorName: string;
+    director: string;
 }

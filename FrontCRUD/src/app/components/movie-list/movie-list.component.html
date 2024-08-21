@@ -1,24 +1,27 @@
-<h2>Movie List</h2>
-
-
-<ul>
-  <li *ngFor="let movie of movies">
-
-    <div class="card" style="width: 18rem;">
-      <img src="..." class="card-img-top" alt="...">
-      <div class="card-body">
-        <p class="card-text">
-          Autor:{{ movie.name }}
-          Director{{ movie.directorName }}
-          <button class="btn btn-danger">Eliminar</button>
-        </p>
+<div class="row m-3">
+    <h2>Movie List</h2>
+      <div class="col-3"  *ngFor="let movie of movies">
+        <div class="card" >
+          <div class="card-body">
+            <p class="card-text">
+              Autor:{{ movie.name }}
+              Director{{ movie.directorName }}
+            </p>
+              <div class="row justify-content-between"> 
+                <div class="col-md-6"> 
+                  <button class="btn btn-primary">Editar</button>
+                </div>
+                <div class="col-md-6"> 
+                  <button class="btn btn-danger" (click)="deleteMovie(movie)" >Eliminar</button>
+                </div>
+              </div>
+          </div>
+        </div>
       </div>
-    </div>
-    
-    <a [routerLink]="['/movies', movie.pKMovies]">View Details</a> 
-    <br>
-    <a [routerLink]="['/movies', movie.pKMovies, 'edit']">Edit</a> 
-    <button (click)="deleteMovie(movie)">Delete</button>
-  </li>
-</ul>
+      
+      <!-- <a [routerLink]="['/movies', movie.pKMovies]">View Details</a> 
+      <br>
+      <a [routerLink]="['/movies', movie.pKMovies, 'edit']">Edit</a> 
+      <button (click)="deleteMovie(movie)">Delete</button> -->
+  </div>
 

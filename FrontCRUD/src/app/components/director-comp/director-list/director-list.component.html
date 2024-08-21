@@ -1,1 +1,46 @@
-<p>director-list works!</p>
+<div class="row m-3">
+    <div class="col-12 d-flex justify-content-end">
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDirectorModal">
+        Add Director
+      </button>
+    </div>
+</div>
+
+<div class="row m-3">
+  <div class="col-3 mb-5" *ngFor="let director of directors">
+    <div class="card ">
+      <div class="card-body">
+        <div style="display: flex; justify-content: center; align-items: center; margin: 1rem;">
+          <i class="bi bi-film" style="font-size: 3rem;"></i> 
+        </div>
+        <div style="display: flex; justify-content: center; align-items: center; margin: 1rem;">
+          <p class="card-text" style="display: flex; flex-direction: column; font-size: medium;">
+            <span>Name: {{ director.name }}</span>
+            <span>Active: {{ director.active }}</span>
+          </p>
+        </div>
+        <div style="display: flex; justify-content: center; align-items: center;">
+          <div class="row justify-content-between">
+
+            <div class="col-md-6">
+              <button (click)="director_selected = director" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editDirectorModal">
+                Edit
+              </button>
+            </div>
+
+            <div class="col-md-6">
+              <button class="btn btn-danger" (click)="deleteDirector(director)">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- <app-movie-create (movieCreated)="onDirectorCreated($event)"></app-movie-create> 
+<app-movie-edit (movieUpdated)="onDirectorUpdated($event)" [directorInput]="director_selected"></app-movie-edit>  -->
+

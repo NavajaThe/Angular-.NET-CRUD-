@@ -1,13 +1,13 @@
 import { Component, OnInit, EventEmitter, Output, ChangeDetectorRef,  } from '@angular/core';
 
-import { Movie } from '../../../models/Movie_Model';
+import { Movie } from '../../../models/movie_model';
 import { NgForm } from '@angular/forms';
-import { Director } from '../../../models/Director_Mode'; 
+import { Director } from '../../../models/director_mode'; 
 import { DirectorService } from '../../../services/director.service';
 import { MovieService } from '../../../services/movie.service';
 
 import { Observable, of } from 'rxjs';
-import { MovieUpload } from 'src/app/models/Movie_Up_Model';
+import { MovieUpload } from 'src/app/models/movie_up_model';
 
 
 @Component({

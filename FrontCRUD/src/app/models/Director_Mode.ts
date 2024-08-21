@@ -1,4 +1,4 @@
-import { Movie } from '../models/Movie_Model'; // Import your Movie interface
+import { Movie } from './movie_model'; // Import your Movie interface
 
 export interface Director {
     pkDirector: number;

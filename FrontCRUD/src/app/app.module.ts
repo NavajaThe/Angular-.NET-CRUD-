@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { DirectorListComponent } from './components/director-comp/director-list/director-list.component';
 import { DirectorCreateComponent } from './components/director-comp/director-create/director-create.component';
 import { DirectorEditComponent } from './components/director-comp/director-edit/director-edit.component';
+import { LandingComponent } from './components/landing/landing.component';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { DirectorEditComponent } from './components/director-comp/director-edit/
     DirectorListComponent,
     DirectorCreateComponent,
     DirectorEditComponent,
+    LandingComponent,
   ],
   imports: [
     BrowserModule,

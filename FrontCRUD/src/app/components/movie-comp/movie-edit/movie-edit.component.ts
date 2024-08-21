@@ -2,7 +2,7 @@ import { Component, OnInit, EventEmitter, Output, ChangeDetectorRef, Input,  } f
 
 import { Movie } from '../../../models/movie_model';
 import { NgForm } from '@angular/forms';
-import { Director } from '../../../models/director_mode'; 
+import { Director } from '../../../models/director_model'; 
 import { DirectorService } from '../../../services/director.service';
 import { MovieService } from '../../../services/movie.service';
 

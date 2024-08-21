@@ -2,11 +2,10 @@ import { Component, OnInit, EventEmitter, Output, ChangeDetectorRef,  } from '@a
 
 import { Movie } from '../../../models/movie_model';
 import { NgForm } from '@angular/forms';
-import { Director } from '../../../models/director_mode'; 
+import { Director } from '../../../models/director_model'; 
 import { DirectorService } from '../../../services/director.service';
 import { MovieService } from '../../../services/movie.service';
 
-import { Observable, of } from 'rxjs';
 import { MovieUpload } from 'src/app/models/movie_up_model';
 
 
@@ -20,17 +19,13 @@ export class MovieCreateComponent implements OnInit {
 
   directors: Director[] = []
 
-  //directors$: Observable<Director[]>;
-  //directors$: Observable<Director[]> = of([]);
-  selectedDirector: number | null = null; // Declare and optionally initialize selectedDirector
+  selectedDirector: number | null = null;
 
 
   constructor(private directorService: DirectorService, private changeDetectorRef: ChangeDetectorRef, private movieService: MovieService) { }
 
   ngOnInit(): void {
     this.getDirectors();
-    //this.directors$ = this.directorService.getDirectors(); // Assign a value later
-    //console.log(this.directors);
   }
 
   @Output() close = new EventEmitter<void>();
@@ -44,11 +39,9 @@ export class MovieCreateComponent implements OnInit {
         next: directors => {
           this.directors = directors; 
           this.changeDetectorRef.detectChanges();
-          //console.log(directors);
         },
         error: error => {
           console.error('Error fetching directors:', error);
-          // Handle the error appropriately (e.g., display an error message to the user)
         }
       });
   }
@@ -63,15 +56,13 @@ export class MovieCreateComponent implements OnInit {
 
   onSubmit(form: NgForm,) {
     if (form.valid) {
-    let newMovie:MovieUpload = form.value; // Get the form values
-    // You might also want to close the modal here using Bootstrap's JavaScript API
+    let newMovie:MovieUpload = form.value; 
     newMovie.fKDirector = Number(this.selectedDirector);
     form.resetForm(); // Reset the form
     this.movieService.createMovie(newMovie)
       .subscribe({
         next: createdMovie => {
-          this.movieCreated.emit(createdMovie); // Emit the created movie
-          // ... (rest of your logic)
+          this.movieCreated.emit(createdMovie);
         },
       });
 

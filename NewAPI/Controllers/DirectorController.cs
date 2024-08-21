@@ -98,7 +98,7 @@ public class DirectorsController : ControllerBase
             }
         }
 
-        return Ok("Success");
+        return Ok(director);
     }
 
     // POST: /director

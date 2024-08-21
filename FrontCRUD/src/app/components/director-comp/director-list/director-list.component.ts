@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Director } from 'src/app/models/director_mode';
+import { Director } from '../../../models/director_model';
 import { Movie } from '../../../models/movie_model'; 
 import { DirectorService } from '../../../services/director.service';
 
@@ -21,24 +21,24 @@ export class DirectorListComponent implements OnInit {
   }
 
   directors: Director[] = [];
-  
+
   director_selected: Director = {
     pkDirector: 0,
     name: "",
     age: 0,
     active: false,
     
-    movies: this.movie_null
+    movies: [this.movie_null]
   }
 
-  director_put: Movie = {
-    pkMovies: 0,
-    name: "",
-    gender: "",
-    duration: "",
-    fkDirector: 0,
-    director: 0
-  }
+  // director_put: Movie = {
+  //   pkMovies: 0,
+  //   name: "",
+  //   gender: "",
+  //   duration: "",
+  //   fkDirector: 0,
+  //   director: 0
+  // }
 
   constructor(private directorService: DirectorService) { }
 
@@ -81,11 +81,16 @@ export class DirectorListComponent implements OnInit {
   }
 
   deleteDirector(director: Director): void {
-    //console.log(director)
-    if (confirm('Are you sure you want to delete this movie?')) {
+    if (confirm('Are you sure you want to delete this director?')) { 
+      // Check if the director has any movies
+      if (director.movies && director.movies.length > 0) {
+        alert("Cannot delete director. There are movies associated with this director."); 
+        return; 
+      }
+  
       this.directorService.deleteDirector(director.pkDirector)
         .subscribe(() => {
-          this.getDirectors();
+          this.getDirectors(); 
         });
     }
   }

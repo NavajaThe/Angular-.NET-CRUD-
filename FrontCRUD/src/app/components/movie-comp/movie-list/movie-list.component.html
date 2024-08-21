@@ -7,6 +7,19 @@
 </div>
 
 <div class="row m-3">
+  <div *ngIf="movies.length > 0; else noMovies">
+    <div class="col-3 mb-5" *ngFor="let movie of movies">
+      </div>
+  </div>
+
+  <ng-template #noMovies>
+    <div class="col-12 text-center">
+      <p class="h3">Please register a new movie.</p> 
+    </div>
+  </ng-template>
+</div>
+
+<div class="row m-3">
   <div class="col-3 mb-5" *ngFor="let movie of movies">
     <div class="card ">
       <div class="card-body">
@@ -20,7 +33,7 @@
           </p>
         </div>
         <div style="display: flex; justify-content: center; align-items: center;">
-          <div class="row justify-content-between">
+          <div class="row justify-content-between" style="margin: 1rem;">
 
             <div class="col-md-6">
               <button (click)="movie_selected = movie" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editMovieModal">

@@ -6,7 +6,7 @@ export interface Director {
     age: number;
     active: boolean;
 
-    movies: Movie;
+    movies: [Movie];
 }
 
 

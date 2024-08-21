@@ -7,30 +7,54 @@
 </div>
 
 <div class="row m-3">
+  <div *ngIf="directors.length > 0; else noDirectors">
+    <div class="col-3 mb-5" *ngFor="let director of directors">
+      </div>
+  </div>
+
+  <ng-template #noDirectors>
+    <div class="col-12 text-center">
+      <p class="h3">Please register a new Director.</p> 
+    </div>
+  </ng-template>
+</div>
+
+<div class="row m-3">
   <div class="col-3 mb-5" *ngFor="let director of directors">
     <div class="card ">
       <div class="card-body">
         <div style="display: flex; justify-content: center; align-items: center; margin: 1rem;">
-          <i class="bi bi-film" style="font-size: 3rem;"></i> 
+          <i class="bi bi-camera-reels" style="font-size: 3rem;"></i> 
         </div>
         <div style="display: flex; justify-content: center; align-items: center; margin: 1rem;">
           <p class="card-text" style="display: flex; flex-direction: column; font-size: medium;">
-            <span>Name: {{ director.name }}</span>
-            <span>Active: {{ director.active }}</span>
+            <span>Nombre: {{ director.name }}</span>
+            <span>Edad: {{ director.age}}</span>
+            <span>Activo: {{ director.active ? 'Si' : 'No' }}</span>
           </p>
         </div>
+
+        <h4>Movies:</h4>
+          <ul *ngIf="director.movies && director.movies.length > 0">
+            <li *ngFor="let movie of director.movies">
+              {{ movie.name }}
+            </li>
+          </ul>
+        <p *ngIf="!director.movies || director.movies.length <= 0">No movies found for this director.</p>
+
         <div style="display: flex; justify-content: center; align-items: center;">
-          <div class="row justify-content-between">
+          <div class="row justify-content-between"  style="margin: 1rem;">
 
             <div class="col-md-6">
-              <button (click)="director_selected = director" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editDirectorModal">
-                Edit
+              <button (click)="director_selected = director" type="button" class="btn btn-primary me-3" data-bs-toggle="modal" data-bs-target="#editDirectorModal"> 
+                  Edit
               </button>
             </div>
-
+            
             <div class="col-md-6">
-              <button class="btn btn-danger" (click)="deleteDirector(director)">Delete</button>
+                <button class="btn btn-danger" (click)="deleteDirector(director)">Delete</button>
             </div>
+            
           </div>
         </div>
       </div>
@@ -41,6 +65,6 @@
 
 
 
-<!-- <app-movie-create (movieCreated)="onDirectorCreated($event)"></app-movie-create> 
-<app-movie-edit (movieUpdated)="onDirectorUpdated($event)" [directorInput]="director_selected"></app-movie-edit>  -->
+<app-director-create (directorCreated)="onDirectorCreated($event)"></app-director-create>
+<app-director-edit (directorsUpdated)="onDirectorUpdated($event)" [directorInput]="director_selected"></app-director-edit> 
 

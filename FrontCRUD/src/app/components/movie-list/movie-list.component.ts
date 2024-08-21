@@ -40,6 +40,10 @@ export class MovieListComponent implements OnInit {
       .subscribe(movies => this.movies = movies);
   }
 
+  onMovieCreated(newMovie: Movie) {
+    this.movies.push(newMovie); // Add the new movie to the list
+  }
+
   deleteMovie(movie: Movie): void {
     console.log(movie)
     if (confirm('Are you sure you want to delete this movie?')) {

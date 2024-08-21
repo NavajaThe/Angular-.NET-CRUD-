@@ -35,10 +35,8 @@ export class MovieCreateComponent implements OnInit {
 
   @Output() close = new EventEmitter<void>();
 
-  // getDirectors(): void {
-  //   this.directorService.getDirectors()
-  //     .subscribe(director => this.directors = director);
-  // }
+  @Output() movieCreated = new EventEmitter<Movie>(); // Add this line
+
 
   getDirectors(): void {
     this.directorService.getDirectors()
@@ -75,7 +73,12 @@ export class MovieCreateComponent implements OnInit {
     newMovie.fKDirector = Number(this.selectedDirector);
     form.resetForm(); // Reset the form
     this.movieService.createMovie(newMovie)
-      .subscribe(  response => console.log(response));
+      .subscribe({
+        next: createdMovie => {
+          this.movieCreated.emit(createdMovie); // Emit the created movie
+          // ... (rest of your logic)
+        },
+      });
 
     
 

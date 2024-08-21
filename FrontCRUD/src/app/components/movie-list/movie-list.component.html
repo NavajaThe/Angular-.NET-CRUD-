@@ -41,6 +41,6 @@
 
 
 
-<app-movie-create (close)="closeAddModal()"></app-movie-create> 
+<app-movie-create (close)="closeAddModal()" (movieCreated)="onMovieCreated($event)"></app-movie-create> 
 <app-movie-edit (close)="closeAddModal()" [movie]="movie_selected"></app-movie-edit> 
 

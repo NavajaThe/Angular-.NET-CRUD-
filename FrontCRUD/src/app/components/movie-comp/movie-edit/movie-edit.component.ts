@@ -66,18 +66,16 @@ export class MovieEditComponent implements OnInit {
 
   onEditSubmit(form: NgForm) {
     if (form.valid) {
-      let updatedMovie:Movie = form.value; // Get the form values
-      // You might also want to close the modal here using Bootstrap's JavaScript API
+      let updatedMovie:Movie = form.value; 
       updatedMovie.pkMovies = Number(this.movieInput.pkMovies);
       updatedMovie.fkDirector = Number(updatedMovie.fkDirector);
-      form.resetForm(); // Reset the form
+      form.resetForm();
 
       console.log(updatedMovie);
       this.movieService.updateMovie(updatedMovie)
         .subscribe({
           next: updatedMovie => {
-            this.movieUpdated.emit(updatedMovie); // Emit the created movie
-            // ... (rest of your logic)
+            this.movieUpdated.emit(updatedMovie);
           },
         });
 

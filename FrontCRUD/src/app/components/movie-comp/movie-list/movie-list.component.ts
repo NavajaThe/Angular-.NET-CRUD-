@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MovieService } from '../../../services/movie.service';
 import { Movie } from '../../../models/Movie_Model'; // Import your Movie interface
-//import { MoviePUT } from 'src/app/models/Movie_PUT_Mode';
 
 
 @Component({
@@ -50,7 +49,26 @@ export class MovieListComponent implements OnInit {
   }
 
   onMovieUpdated(updatedMovie: Movie) {
-    this.movies.push(updatedMovie); // Add the new movie to the list
+    
+    const index = this.movies.findIndex(m => m.pkMovies === updatedMovie.pkMovies);
+  
+    if (index > -1) {
+      const existingMovie = this.movies[index];
+  
+      this.movies[index] = {
+        ...existingMovie, 
+        name: updatedMovie.name || existingMovie.name, 
+        gender: updatedMovie.gender || existingMovie.gender,
+        duration: updatedMovie.duration || existingMovie.duration,
+        fkDirector: updatedMovie.fkDirector || existingMovie.fkDirector,
+        director: updatedMovie.fkDirector || existingMovie.fkDirector 
+      };
+
+      this.getMovies();
+    } else {
+      console.error('Movie not found in the list for update.');
+    }
+    
   }
 
   deleteMovie(movie: Movie): void {

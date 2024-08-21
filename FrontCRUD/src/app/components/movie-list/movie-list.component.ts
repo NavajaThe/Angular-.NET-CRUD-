@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MovieService } from '../../services/movie.service';
 import { Movie } from '../../models/Movie_Model'; // Import your Movie interface
-import { MovieCreateComponent } from './../movie-create/movie-create.component';
 
 
 @Component({
@@ -11,11 +10,11 @@ import { MovieCreateComponent } from './../movie-create/movie-create.component';
 })
 export class MovieListComponent implements OnInit {
   movies: Movie[] = [];
-  showAddModal: boolean = false;
+  //showAddModal: boolean = false;
 
-  openAddModal() {
-    this.showAddModal = true;
-  }
+  // openAddModal() {
+  //   this.showAddModal = true;
+  // }
 
   closeAddModal() {
     console.log("Mi Hijo me avandono")
@@ -30,11 +29,6 @@ export class MovieListComponent implements OnInit {
   getMovies(): void {
     this.movieService.getMovies()
       .subscribe(movies => this.movies = movies);
-  }
-
-  manejarEventoDelHijo(datos: any) { // <-- Cambiar 'any' por el tipo de dato que esperas recibir
-    console.log('El hijo emitió un evento:', datos);
-    // ... hacer algo con los datos recibidos
   }
 
   deleteMovie(movie: Movie): void {

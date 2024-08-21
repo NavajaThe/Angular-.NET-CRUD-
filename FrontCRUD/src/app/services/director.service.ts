@@ -24,7 +24,7 @@ export class DirectorService {
   }
 
   updateDirector(director: Director): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${director.PKDirector}`, director); 
+    return this.http.put(`${this.apiUrl}/${director.pKDirector}`, director); 
   }
 
   deleteDirector(id: number): Observable<any> {

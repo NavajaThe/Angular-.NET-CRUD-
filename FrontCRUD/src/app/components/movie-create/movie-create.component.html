@@ -30,7 +30,7 @@
           <div class="mb-3">
             <label for="director" class="form-label">Director</label>
             <select class="form-select" id="director" name="director" ngModel required [(ngModel)]="selectedDirector"> 
-              <option *ngFor="let director of directors" [value]="director.PKDirector">{{ director.Name }}</option> 
+              <option *ngFor="let director of directors" [value]="director.pKDirector">{{ director.name }}</option> 
             </select>
           </div>
           <button (click)="closeModal()" class="btn btn-primary">Save</button>

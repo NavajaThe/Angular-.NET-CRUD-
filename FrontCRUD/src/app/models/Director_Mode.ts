@@ -1,12 +1,12 @@
 import { Movie } from '../models/Movie_Model'; // Import your Movie interface
 
 export interface Director {
-    PKDirector: number;
-    Name: string;
-    Age: number;
-    Active: boolean;
+    pKDirector: number;
+    name: string;
+    age: number;
+    active: boolean;
 
-    Movies: Movie;
+    movies: Movie;
 }
 
 

@@ -55,6 +55,7 @@ export class MovieCreateComponent implements OnInit {
 
   closeModal() {
     console.log("bye bye")
+    console.log(this.directors[0].name);
     const button = document.querySelector('#myButton') as HTMLButtonElement;
     if (button) {
       button.click();

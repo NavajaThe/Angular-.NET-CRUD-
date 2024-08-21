@@ -15,7 +15,7 @@ export class MovieListComponent implements OnInit {
     name: "",
     gender: "",
     duration: "",
-    fKDirector: 0,
+    fkDirector: 0,
     director: 0
 }
   //showAddModal: boolean = false;
@@ -25,8 +25,8 @@ export class MovieListComponent implements OnInit {
   // }
 
   closeAddModal() {
-    this.movieService.getMovies()
-      .subscribe(movies => this.movies = movies);
+    this.getMovies();
+    console.log("se cerro");
   }
 
   constructor(private movieService: MovieService) { }

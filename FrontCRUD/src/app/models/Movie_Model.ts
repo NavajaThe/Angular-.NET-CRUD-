@@ -4,6 +4,6 @@ export interface Movie {
     gender: string;
     duration: string;
 
-    fKDirector: number;
+    fkDirector: number;
     director: number;
 }

@@ -21,7 +21,7 @@ export class MovieEditComponent implements OnInit {
     name: "",
     gender: "",
     duration: "",
-    fKDirector: 0,
+    fkDirector: 0,
     director: 0
 }
 

@@ -28,7 +28,7 @@ public class MoviesController : ControllerBase
                                             m.name,
                                             m.gender,
                                             m.duration,
-                                            Director = m.director.name // Select only the Director's Name
+                                            Director = m.director.name
                                         })
                                         .ToListAsync(); 
 
@@ -81,7 +81,7 @@ public class MoviesController : ControllerBase
             return BadRequest("Something went wrong");
         }
 
-        //return CreatedAtAction("GetMovie", new { id = movie.PKMovies }, movie);
+        
         return CreatedAtAction("GetMovie", new { id = movie.pkMovies }, movie); 
     }
 
@@ -100,7 +100,7 @@ public class MoviesController : ControllerBase
             return BadRequest("The movie ID in the URL does not match the ID in the request body."); 
         }
 
-        // Check if the provided FKDirector (director ID) exists in the Director table
+
         if (!await _context.Director.AnyAsync(d => d.pkDirector == movie.fkDirector))
         {
             return BadRequest("Invalid Director ID. The specified director does not exist.");
@@ -116,11 +116,11 @@ public class MoviesController : ControllerBase
         {
             if (!DoesMovieExist(id))
             {
-                return NotFound(); // Return 404 Not Found if the movie to update doesn't exist
+                return NotFound(); 
             }
             else
             {
-                throw; // Re-throw the exception for other potential concurrency issues
+                throw; 
             }
         }
 

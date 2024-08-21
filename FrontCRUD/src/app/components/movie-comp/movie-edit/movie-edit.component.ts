@@ -4,9 +4,7 @@ import { Movie } from '../../../models/Movie_Model';
 import { NgForm } from '@angular/forms';
 import { Director } from '../../../models/Director_Mode'; 
 import { DirectorService } from '../../../services/director.service';
-import { MovieUpload } from 'src/app/models/Movie_Up_Model';
 import { MovieService } from '../../../services/movie.service';
-//import { MoviePUT } from 'src/app/models/Movie_PUT_Mode';
 
 @Component({
   selector: 'app-movie-edit',
@@ -33,7 +31,6 @@ export class MovieEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDirectors();
-    //console.log(this.movieInput);
   }
   
 
@@ -47,11 +44,9 @@ export class MovieEditComponent implements OnInit {
         next: directors => {
           this.directors = directors; 
           this.changeDetectorRef.detectChanges();
-          //console.log(directors);
         },
         error: error => {
           console.error('Error fetching directors:', error);
-          // Handle the error appropriately (e.g., display an error message to the user)
         }
       });
   }

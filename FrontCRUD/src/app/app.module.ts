@@ -10,7 +10,11 @@ import { MovieEditComponent } from './components/movie-comp/movie-edit/movie-edi
 import { MovieDetailsComponent } from './components/movie-comp/movie-details/movie-details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { FormsModule } from '@angular/forms'; // Import FormsModule
+import { FormsModule } from '@angular/forms';
+import { DirectorListComponent } from './components/director-comp/director-list/director-list.component';
+import { DirectorCreateComponent } from './components/director-comp/director-create/director-create.component';
+import { DirectorEditComponent } from './components/director-comp/director-edit/director-edit.component';
+import { DirectorDetailsComponent } from './components/director-comp/director-details/director-details.component'; // Import FormsModule
 
 
 @NgModule({
@@ -20,6 +24,10 @@ import { FormsModule } from '@angular/forms'; // Import FormsModule
     MovieCreateComponent,
     MovieEditComponent,
     MovieDetailsComponent,
+    DirectorListComponent,
+    DirectorCreateComponent,
+    DirectorEditComponent,
+    DirectorDetailsComponent,
   ],
   imports: [
     BrowserModule,

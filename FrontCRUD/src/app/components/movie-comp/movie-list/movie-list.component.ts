@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MovieService } from '../../../services/movie.service';
-import { Movie } from '../../../models/Movie_Model'; // Import your Movie interface
+import { Movie } from '../../../models/Movie_Model'; 
 
 
 @Component({
@@ -27,11 +27,6 @@ export class MovieListComponent implements OnInit {
     fkDirector: 0,
     director: 0
   }
-  //showAddModal: boolean = false;
-
-  // openAddModal() {
-  //   this.showAddModal = true;
-  // }
 
   constructor(private movieService: MovieService) { }
 
@@ -45,7 +40,7 @@ export class MovieListComponent implements OnInit {
   }
 
   onMovieCreated(newMovie: Movie) {
-    this.movies.push(newMovie); // Add the new movie to the list
+    this.movies.push(newMovie);
   }
 
   onMovieUpdated(updatedMovie: Movie) {

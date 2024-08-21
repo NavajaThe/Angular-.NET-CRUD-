@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Pomelo.EntityFrameworkCore.MySql;
-using MySql.Data.MySqlClient;
 using Data;
 
 [ApiController]
@@ -124,7 +122,6 @@ public class DirectorsController : ControllerBase
 
         }
 
-        // Check for associated movies
         if (await _context.Movies.AnyAsync(m => m.fkDirector == id))
         {
             return BadRequest("Cannot delete director. There are movies associated with this director.");

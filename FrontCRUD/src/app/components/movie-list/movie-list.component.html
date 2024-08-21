@@ -21,11 +21,15 @@
         </div>
         <div style="display: flex; justify-content: center; align-items: center;">
           <div class="row justify-content-between">
+
             <div class="col-md-6">
-              <button class="btn btn-primary">Editar</button>
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editMovieModal">
+                Edit
+              </button>
             </div>
+            
             <div class="col-md-6">
-              <button class="btn btn-danger" (click)="deleteMovie(movie)">Eliminar</button>
+              <button class="btn btn-danger" (click)="deleteMovie(movie)">Delete</button>
             </div>
           </div>
         </div>
@@ -37,4 +41,4 @@
 
 
 
-  <app-movie-create (close)="closeModal()"></app-movie-create> 
+  <app-movie-create (close)="closeAddModal()"></app-movie-create> 

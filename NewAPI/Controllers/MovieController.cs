@@ -85,6 +85,50 @@ public class MoviesController : ControllerBase
         return CreatedAtAction("GetMovie", new { id = movie.pkMovies }, movie); 
     }
 
+    private bool DoesMovieExist(int id) // Renamed method
+    {
+        return _context.Movies.Any(e => e.pkMovies == id);
+    }
+
+    //Update
+    // PUT: /movies/5  (or /movies/{id})
+    [HttpPut("{id}")]
+    public async Task<IActionResult> PutMovie(int id, Movie movie)
+    {
+        if (id != movie.pkMovies)
+        {
+            return BadRequest("The movie ID in the URL does not match the ID in the request body."); 
+        }
+
+        // Check if the provided FKDirector (director ID) exists in the Director table
+        if (!await _context.Director.AnyAsync(d => d.pkDirector == movie.fkDirector))
+        {
+            return BadRequest("Invalid Director ID. The specified director does not exist.");
+        }
+
+        _context.Entry(movie).State = EntityState.Modified;
+
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!DoesMovieExist(id))
+            {
+                return NotFound(); // Return 404 Not Found if the movie to update doesn't exist
+            }
+            else
+            {
+                throw; // Re-throw the exception for other potential concurrency issues
+            }
+        }
+
+        return CreatedAtAction("GetMovie", new { id = movie.pkMovies }, movie); 
+    }
+
+    
+
     //Delete
     // DELETE: /movies/5
     [HttpDelete("{id}")]

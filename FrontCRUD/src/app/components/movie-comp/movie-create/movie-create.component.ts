@@ -1,10 +1,10 @@
 import { Component, OnInit, EventEmitter, Output, ChangeDetectorRef,  } from '@angular/core';
 
-import { Movie } from '../../models/Movie_Model';
+import { Movie } from '../../../models/Movie_Model';
 import { NgForm } from '@angular/forms';
-import { Director } from '../../models/Director_Mode'; 
-import { DirectorService } from '../../services/director.service';
-import { MovieService } from '../../services/movie.service';
+import { Director } from '../../../models/Director_Mode'; 
+import { DirectorService } from '../../../services/director.service';
+import { MovieService } from '../../../services/movie.service';
 
 import { Observable, of } from 'rxjs';
 import { MovieUpload } from 'src/app/models/Movie_Up_Model';
@@ -21,7 +21,7 @@ export class MovieCreateComponent implements OnInit {
   directors: Director[] = []
 
   //directors$: Observable<Director[]>;
-  directors$: Observable<Director[]> = of([]);
+  //directors$: Observable<Director[]> = of([]);
   selectedDirector: number | null = null; // Declare and optionally initialize selectedDirector
 
 
@@ -29,13 +29,13 @@ export class MovieCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDirectors();
-    this.directors$ = this.directorService.getDirectors(); // Assign a value later
+    //this.directors$ = this.directorService.getDirectors(); // Assign a value later
     //console.log(this.directors);
   }
 
   @Output() close = new EventEmitter<void>();
 
-  @Output() movieCreated = new EventEmitter<Movie>(); // Add this line
+  @Output() movieCreated = new EventEmitter<Movie>(); 
 
 
   getDirectors(): void {
@@ -53,17 +53,12 @@ export class MovieCreateComponent implements OnInit {
       });
   }
 
-  closeModal() {
+  closeCreateModal() {
     const button = document.querySelector('#myButton') as HTMLButtonElement;
     if (button) {
       button.click();
     }
      this.close.emit();
-  }
-
-  getMovies(): void {
-    this.movieService.getMovies()
-      .subscribe(movies => this.movies = movies);
   }
 
   onSubmit(form: NgForm,) {
@@ -82,7 +77,7 @@ export class MovieCreateComponent implements OnInit {
 
     
 
-    this.closeModal();
+    this.closeCreateModal();
     }
   }
 

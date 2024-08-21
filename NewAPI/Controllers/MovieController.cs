@@ -82,7 +82,7 @@ public class MoviesController : ControllerBase
         }
 
         //return CreatedAtAction("GetMovie", new { id = movie.PKMovies }, movie);
-        return Ok("Success");
+        return CreatedAtAction("GetMovie", new { id = movie.PKMovies }, movie); 
     }
 
     //Delete
@@ -99,7 +99,7 @@ public class MoviesController : ControllerBase
         _context.Movies.Remove(movie);
         await _context.SaveChangesAsync();
 
-        return Ok("Success");
+        return NoContent();
     }
 
     private bool MovieExists(int id)

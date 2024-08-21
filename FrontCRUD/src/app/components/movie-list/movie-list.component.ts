@@ -10,6 +10,14 @@ import { Movie } from '../../models/Movie_Model'; // Import your Movie interface
 })
 export class MovieListComponent implements OnInit {
   movies: Movie[] = [];
+  movie_selected: Movie = {
+    pkMovies: 0,
+    name: "",
+    gender: "",
+    duration: "",
+    fKDirector: 0,
+    director: 0
+}
   //showAddModal: boolean = false;
 
   // openAddModal() {
@@ -17,7 +25,8 @@ export class MovieListComponent implements OnInit {
   // }
 
   closeAddModal() {
-    console.log("Mi Hijo me avandono")
+    this.movieService.getMovies()
+      .subscribe(movies => this.movies = movies);
   }
 
   constructor(private movieService: MovieService) { }
@@ -32,10 +41,12 @@ export class MovieListComponent implements OnInit {
   }
 
   deleteMovie(movie: Movie): void {
+    console.log(movie)
     if (confirm('Are you sure you want to delete this movie?')) {
-      this.movieService.deleteMovie(movie.pKMovies)
+      this.movieService.deleteMovie(movie.pkMovies)
         .subscribe(() => {
-          this.movies = this.movies.filter(m => m !== movie);
+          console.log("werqwerqwerqwerq");
+          this.getMovies();
         });
     }
   }

@@ -23,7 +23,7 @@
           <div class="row justify-content-between">
 
             <div class="col-md-6">
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editMovieModal">
+              <button (click)="movie_selected = movie" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editMovieModal">
                 Edit
               </button>
             </div>
@@ -42,5 +42,5 @@
 
 
 <app-movie-create (close)="closeAddModal()"></app-movie-create> 
-<app-movie-edit (close)="closeAddModal()"></app-movie-edit> 
+<app-movie-edit (close)="closeAddModal()" [movie]="movie_selected"></app-movie-edit> 
 

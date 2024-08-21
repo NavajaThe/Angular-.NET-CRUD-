@@ -1,9 +1,9 @@
 export interface Movie {
-    pKMovies: number;
+    pkMovies: number;
     name: string;
     gender: string;
     duration: string;
 
     fKDirector: number;
-    director: string;
+    director: number;
 }

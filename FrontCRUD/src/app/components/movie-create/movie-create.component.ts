@@ -4,6 +4,7 @@ import { Movie } from '../../models/Movie_Model';
 import { NgForm } from '@angular/forms';
 import { Director } from '../../models/Director_Mode'; 
 import { DirectorService } from '../../services/director.service';
+import { MovieService } from '../../services/movie.service';
 
 import { Observable, of } from 'rxjs';
 
@@ -23,7 +24,7 @@ export class MovieCreateComponent implements OnInit {
   selectedDirector: number | null = null; // Declare and optionally initialize selectedDirector
 
 
-  constructor(private directorService: DirectorService, private changeDetectorRef: ChangeDetectorRef) { }
+  constructor(private directorService: DirectorService, private changeDetectorRef: ChangeDetectorRef, private movieService: MovieService) { }
 
   ngOnInit(): void {
     this.getDirectors();
@@ -44,7 +45,7 @@ export class MovieCreateComponent implements OnInit {
         next: directors => {
           this.directors = directors; 
           this.changeDetectorRef.detectChanges();
-          console.log(directors);
+          //console.log(directors);
         },
         error: error => {
           console.error('Error fetching directors:', error);
@@ -54,8 +55,6 @@ export class MovieCreateComponent implements OnInit {
   }
 
   closeModal() {
-    console.log("bye bye")
-    console.log(this.directors[0].name);
     const button = document.querySelector('#myButton') as HTMLButtonElement;
     if (button) {
       button.click();
@@ -63,13 +62,16 @@ export class MovieCreateComponent implements OnInit {
      this.close.emit();
   }
 
-  onSubmit(form: NgForm) {
+  onSubmit(form: NgForm,) {
     if (form.valid) {
-      const newMovie = form.value; // Get the form values
-      this.movies.push(newMovie); // Add the new movie to your movies array
-      form.resetForm(); // Reset the form
-      // You might also want to close the modal here using Bootstrap's JavaScript API
-      this.closeModal();
+    let newMovie:Movie = form.value; // Get the form values
+    // You might also want to close the modal here using Bootstrap's JavaScript API
+    newMovie.director = Number(this.selectedDirector);
+    form.resetForm(); // Reset the form
+    console.log(newMovie);
+    this.movieService.createMovie(newMovie)
+      .subscribe(  response => console.log(response));
+    this.closeModal();
     }
   }
 

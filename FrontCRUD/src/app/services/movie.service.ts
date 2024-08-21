@@ -24,7 +24,7 @@ export class MovieService {
   }
 
   updateMovie(movie: Movie): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${movie.pKMovies}`, movie);
+    return this.http.put(`${this.apiUrl}/${movie.pkMovies}`, movie);
   }
 
   deleteMovie(id: number): Observable<any> {

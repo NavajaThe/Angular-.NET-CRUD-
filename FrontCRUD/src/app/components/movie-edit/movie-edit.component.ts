@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output, ChangeDetectorRef,  } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, ChangeDetectorRef, Input,  } from '@angular/core';
 
 import { Movie } from '../../models/Movie_Model';
 import { NgForm } from '@angular/forms';
@@ -16,6 +16,15 @@ import { Observable, of } from 'rxjs';
 export class MovieEditComponent implements OnInit {
 
   movies: Movie[] = [];
+  @Input() movie: Movie = {
+    pkMovies: 0,
+    name: "",
+    gender: "",
+    duration: "",
+    fKDirector: 0,
+    director: 0
+}
+
   directors: Director[] = []
 
   //directors$: Observable<Director[]>;
@@ -39,7 +48,7 @@ export class MovieEditComponent implements OnInit {
         next: directors => {
           this.directors = directors; 
           this.changeDetectorRef.detectChanges();
-          console.log(directors);
+          //console.log(directors);
         },
         error: error => {
           console.error('Error fetching directors:', error);

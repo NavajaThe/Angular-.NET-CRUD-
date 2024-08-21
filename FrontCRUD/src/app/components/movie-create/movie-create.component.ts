@@ -76,7 +76,9 @@ export class MovieCreateComponent implements OnInit {
     form.resetForm(); // Reset the form
     this.movieService.createMovie(newMovie)
       .subscribe(  response => console.log(response));
+      
     this.getMovies();
+
     this.closeModal();
     }
   }

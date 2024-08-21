@@ -7,12 +7,6 @@
       </div>
       <div class="modal-body">
         <form #addMovieForm="ngForm" (ngSubmit)="onSubmit(addMovieForm)" style="font-size: 1.2rem;"> 
-
-          <div class="mb-3">
-            <label for="pkMovies" class="form-label">No. De peli</label>
-            <input type="text" class="form-control" id="pkMovies" name="pkMovies" ngModel required>
-          </div>
-
           <div class="mb-3">
             <label for="name" class="form-label">Título de la pelicula</label>
             <input type="text" class="form-control" id="name" name="name" ngModel required>
@@ -27,7 +21,6 @@
           </div>
 
           <div class="mb-3">
-            {{selectedDirector}}
             <label for="fKDirector" class="form-label">Director</label>
             <select class="form-select" id="fKDirector" name="fKDirector" [(ngModel)]="selectedDirector" required> 
               <option *ngFor="let director of directors" [value]="director.pkDirector">{{ director.name }}</option> 

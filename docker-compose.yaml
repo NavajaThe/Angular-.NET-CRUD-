@@ -5,7 +5,7 @@ services:
     build:
       context: ./FrontCRUD
     ports:
-      - "4200:4200"
+      - "4200:80"
     depends_on:
       - db
 

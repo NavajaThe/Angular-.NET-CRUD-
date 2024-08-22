@@ -1,12 +1,29 @@
-FROM node:alpine
+# Etapa de construcción
+FROM node:18 AS build
 
-WORKDIR /usr/src/app
+# Configurar el directorio de trabajo
+WORKDIR /app
 
-COPY . /usr/src/app
+# Copiar el archivo package.json y package-lock.json
+COPY package*.json ./
 
-RUN npm install -g @angular/cli
-
+# Instalar las dependencias
 RUN npm install
-EXPOSE 4200
 
-CMD ["ng", "serve", "--host", "0.0.0.0"]
+# Copiar el resto del código de la aplicación
+COPY . .
+
+# Construir la aplicación Angular
+RUN npm run build 
+
+# Etapa de producción
+FROM nginx:alpine
+
+# Copiar los archivos de la etapa de construcción al contenedor Nginx
+COPY --from=build /app/dist/front-crud /usr/share/nginx/html
+
+# Exponer el puerto 80
+EXPOSE 80
+
+# Comando para ejecutar Nginx
+CMD ["nginx", "-g", "daemon off;"]

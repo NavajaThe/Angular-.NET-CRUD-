@@ -17,4 +17,4 @@ COPY --from=build-env /App/out .
 
 EXPOSE 5095 
 
-ENTRYPOINT ["dotnet", "NewAPI.dll"] # Replace 'NewAPI.dll' with your actual API project DLL name
+CMD ["dotnet", "NewAPI.dll"] # Replace 'NewAPI.dll' with your actual API project DLL name

@@ -1,0 +1,59 @@
+  <div class="row m-3">
+    <div class="col-12 d-flex justify-content-end">
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addMovieModal">
+        Add Movie
+      </button>
+    </div>
+</div>
+
+<div class="row m-3">
+  <div *ngIf="movies.length > 0; else noMovies">
+    <div class="col-3 mb-5" *ngFor="let movie of movies">
+      </div>
+  </div>
+
+  <ng-template #noMovies>
+    <div class="col-12 text-center">
+      <p class="h3">Please register a new movie.</p> 
+    </div>
+  </ng-template>
+</div>
+
+<div class="row m-3">
+  <div class="col-3 mb-5" *ngFor="let movie of movies">
+    <div class="card ">
+      <div class="card-body">
+        <div style="display: flex; justify-content: center; align-items: center; margin: 1rem;">
+          <i class="bi bi-film" style="font-size: 3rem;"></i> 
+        </div>
+        <div style="display: flex; justify-content: center; align-items: center; margin: 1rem;">
+          <p class="card-text" style="display: flex; flex-direction: column; font-size: medium;">
+            <span>Autor: {{ movie.director }}</span>
+            <span>Film: {{ movie.name }}</span>
+          </p>
+        </div>
+        <div style="display: flex; justify-content: center; align-items: center;">
+          <div class="row justify-content-between" style="margin: 1rem;">
+
+            <div class="col-md-6">
+              <button (click)="movie_selected = movie" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editMovieModal">
+                Edit
+              </button>
+            </div>
+
+            <div class="col-md-6">
+              <button class="btn btn-danger" (click)="deleteMovie(movie)">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<app-movie-create (movieCreated)="onMovieCreated($event)"></app-movie-create> 
+<app-movie-edit (movieUpdated)="onMovieUpdated($event)" [movieInput]="movie_selected"></app-movie-edit> 
+

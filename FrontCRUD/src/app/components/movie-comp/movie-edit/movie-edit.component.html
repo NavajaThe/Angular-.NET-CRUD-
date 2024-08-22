@@ -1,0 +1,47 @@
+<div class="modal fade" id="editMovieModal" tabindex="-1" aria-labelledby="editMovieModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editMovieModalLabel" style="font-size: 1.5rem;">Edit Movie</h5> 
+          <button type="button" id="myEditButton" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form #editMovieForm="ngForm" (ngSubmit)="onEditSubmit(editMovieForm)" style="font-size: 1.2rem;"> 
+
+            <!-- <input type="hidden" name="fkDirector" [(ngModel)]="movieInput.pkMovies">  -->
+
+            <div class="mb-3">
+              <label for="name" class="form-label">Título de la pelicula</label>
+              <input type="text" class="form-control" id="name" name="name" [(ngModel)]="movieInput.name" required>
+            </div>
+            <div class="mb-3">
+              <label for="gender" class="form-label">Genero</label>
+              <input type="text" class="form-control" id="gender" name="gender" [(ngModel)]="movieInput.gender" required>
+            </div>
+            <div class="mb-3">
+              <label for="duration" class="form-label">Duración</label>
+              <input type="text" class="form-control" id="duration" name="duration" [(ngModel)]="movieInput.duration" required>
+            </div>
+  
+            <!-- <div class="mb-3">
+              <label for="director" class="form-label">Director</label>
+              <select class="form-select" id="director" name="director" [ngValue]="selectedDirector" required> 
+                <option *ngFor="let director of directors$ | async" [ngValue]="director.PKDirector">{{ director.Name }}</option> 
+              </select>
+            </div> -->
+  
+            <div class="mb-3">
+              <label for="fkDirector" class="form-label">Director</label>
+              <select class="form-select" id="fkDirector" name="fkDirector" ngModel required [(ngModel)]="movieInput.fkDirector"> 
+                <option *ngFor="let director of directors" [value]="director.pkDirector">{{ director.name }}</option> 
+              </select>
+            </div>
+
+            <button (click)="closeEditModal()" class="btn btn-primary">Save</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  

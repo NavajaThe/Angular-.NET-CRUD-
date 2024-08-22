@@ -1,0 +1,23 @@
+/* Basic list styling */
+
+ul {
+    list-style: none; /* Remove default bullet points */
+    padding: 0;
+    margin: 0;
+  }
+  
+  li {
+    padding: 10px;
+    border-bottom: 1px solid #ccc; /* Add a subtle separator between list items */
+  }
+  
+  /* Link styling */
+  a {
+    color: blue;
+    text-decoration: none;
+    margin-right: 10px;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }

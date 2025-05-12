@@ -29,6 +29,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: test1234
       MYSQL_DATABASE: Tester
+    command: ['mysqld', '--lower_case_table_names=2']
     ports:
       - "3306:3306"
     volumes:
